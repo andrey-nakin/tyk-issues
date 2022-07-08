@@ -12,16 +12,9 @@ type Mutation {
 }
 
 scalar ID
-scalar DateTime
 
 input MyMutationInput {
   employeeGroupId: ID
-  validityPeriod: OptionalDateTimePeriodInput!
-}
-
-input OptionalDateTimePeriodInput {
-  from: DateTime
-  to: DateTime
 }
 
 union MyMutationPayload = MyMutationResult | MyMutationErrors
@@ -42,7 +35,6 @@ type NullArgumentError implements UserError {
 
 type EmptyArgumentError implements UserError {
   path: [String!]
-  proposedFrom: DateTime
 }
 
 interface UserError {
