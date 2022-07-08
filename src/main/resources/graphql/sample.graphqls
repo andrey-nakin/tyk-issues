@@ -24,13 +24,13 @@ input OptionalDateTimePeriodInput {
   to: DateTime
 }
 
-union MyMutationPayload = MyMutationResult | EmployeeGroupViewToShiftJournalAssignmentErrors
+union MyMutationPayload = MyMutationResult | MyMutationErrors
 
 type MyMutationResult {
   status: String
 }
 
-type EmployeeGroupViewToShiftJournalAssignmentErrors {
+type MyMutationErrors {
   errors: [EmployeeGroupViewToShiftJournalAssignmentError!]!
 }
 
