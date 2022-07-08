@@ -1,0 +1,31 @@
+type Query {
+  getString: String
+}
+
+type Mutation {
+  myMutation(arg: String): MyMutationPayload!
+}
+
+union MyMutationPayload = MyMutationResult | MyMutationErrors
+
+type MyMutationResult {
+  status: String
+}
+
+type MyMutationErrors {
+  errors: [MyMutationError]!
+}
+
+union MyMutationError = NullArgumentError | EmptyArgumentError
+
+type NullArgumentError implements UserError {
+  path: String
+}
+
+type EmptyArgumentError implements UserError {
+  path: String
+}
+
+interface UserError {
+  path: String
+}
