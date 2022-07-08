@@ -291,7 +291,7 @@
     "enabled": true,
     "execution_mode": "subgraph",
     "version": "2",
-    "schema": "type Query {\n  getString: String\n}\n\ntype Mutation {\n  myMutation(arg: String): MyMutationPayload!\n}\n\nunion MyMutationPayload = MyMutationResult | MyMutationErrors\n\ntype MyMutationResult {\n  status: String\n}\n\ntype MyMutationErrors {\n  errors: [MyMutationError]!\n}\n\nunion MyMutationError = NullArgumentError | EmptyArgumentError\n\ntype NullArgumentError implements UserError {\n  path: String\n}\n\ntype EmptyArgumentError implements UserError {\n  path: String\n}\n\ninterface UserError {\n  path: String\n}",
+    "schema": "schema {\n  query: Query\n  mutation: Mutation\n}\n\ntype Query {\n  getString: String\n}\n\ntype Mutation {\n  myMutation(input: MyMutationInput!): MyMutationPayload!\n}\n\ninput MyMutationInput {\n  status: String\n}\n\nunion MyMutationPayload = MyMutationResult | MyMutationErrors\n\ntype MyMutationResult {\n  status: String\n}\n\ntype MyMutationErrors {\n  errors: [MyMutationError!]!\n}\n\nunion MyMutationError = NullArgumentError | EmptyArgumentError\n\ntype NullArgumentError implements UserError {\n  path: [String!]\n}\n\ntype EmptyArgumentError implements UserError {\n  path: [String!]\n}\n\ninterface UserError {\n  path: [String!]\n}\n",
     "type_field_configurations": null,
     "playground": {
       "enabled": false,
@@ -305,7 +305,7 @@
       "auth_headers": null
     },
     "subgraph": {
-      "sdl": ""
+      "sdl": "schema {\n  query: Query\n  mutation: Mutation\n}\n\ntype Query {\n  getString: String\n}\n\ntype Mutation {\n  myMutation(input: MyMutationInput!): MyMutationPayload!\n}\n\ninput MyMutationInput {\n  status: String\n}\n\nunion MyMutationPayload = MyMutationResult | MyMutationErrors\n\ntype MyMutationResult {\n  status: String\n}\n\ntype MyMutationErrors {\n  errors: [MyMutationError!]!\n}\n\nunion MyMutationError = NullArgumentError | EmptyArgumentError\n\ntype NullArgumentError implements UserError {\n  path: [String!]\n}\n\ntype EmptyArgumentError implements UserError {\n  path: [String!]\n}\n\ninterface UserError {\n  path: [String!]\n}\n"
     },
     "supergraph": null
   }
