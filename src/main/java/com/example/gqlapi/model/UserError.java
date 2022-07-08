@@ -1,6 +1,8 @@
 package com.example.gqlapi.model;
 
+import java.util.List;
+
 public interface UserError {
 
-    String getPath();
+    List<String> getPath();
 }

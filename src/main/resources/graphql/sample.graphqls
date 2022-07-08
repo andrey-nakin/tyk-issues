@@ -24,13 +24,13 @@ type MyMutationErrors {
 union MyMutationError = NullArgumentError | EmptyArgumentError
 
 type NullArgumentError implements UserError {
-  path: String
+  path: [String!]
 }
 
 type EmptyArgumentError implements UserError {
-  path: String
+  path: [String!]
 }
 
 interface UserError {
-  path: String
+  path: [String!]
 }
