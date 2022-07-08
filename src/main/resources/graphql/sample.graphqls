@@ -8,13 +8,11 @@ type Query {
 }
 
 type Mutation {
-  myMutation(id1: ID!, id2: ID!, input: [MyMutationInput!]!): MyMutationPayload!
+  myMutation(input: MyMutationInput!): MyMutationPayload!
 }
 
-scalar ID
-
 input MyMutationInput {
-  employeeGroupId: ID
+  someId: String
 }
 
 union MyMutationPayload = MyMutationResult | MyMutationErrors
