@@ -34,13 +34,13 @@ type MyMutationErrors {
   errors: [MyMutationError!]!
 }
 
-union MyMutationError = EmployeeGroupViewErrorStarted | EmployeeGroupViewErrorInvalidFrom
+union MyMutationError = NullArgumentError | EmptyArgumentError
 
-type EmployeeGroupViewErrorStarted implements UserError {
+type NullArgumentError implements UserError {
   path: [String!]
 }
 
-type EmployeeGroupViewErrorInvalidFrom implements UserError {
+type EmptyArgumentError implements UserError {
   path: [String!]
   proposedFrom: DateTime
 }
