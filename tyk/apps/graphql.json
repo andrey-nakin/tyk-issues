@@ -203,32 +203,7 @@
   },
   "disable_rate_limit": false,
   "disable_quota": false,
-  "custom_middleware": {
-    "pre": [
-      {
-        "name": "PreHook",
-        "path": "",
-        "require_session": false,
-        "raw_body_only": false
-      }
-    ],
-    "post": null,
-    "post_key_auth": null,
-    "auth_check": {
-      "name": "",
-      "path": "",
-      "require_session": false,
-      "raw_body_only": false
-    },
-    "response": null,
-    "driver": "python",
-    "id_extractor": {
-      "extract_from": "",
-      "extract_with": "",
-      "extractor_config": null
-    }
-  },
-  "custom_middleware_bundle": "graphql.zip",
+  "custom_middleware_bundle": null,
   "cache_options": {
     "cache_timeout": 0,
     "enable_cache": false,
@@ -308,19 +283,19 @@
       "auth_headers": {}
     },
     "subgraph": {
-      "sdl": ""
+      "sdl": "type Query {\n  getString: String\n}\n\ntype Mutation {\n  myMutation(arg: String): MyMutationPayload!\n}\n\nunion MyMutationPayload = MyMutationResult | MyMutationErrors\n\ntype MyMutationResult {\n  status: String\n}\n\ntype MyMutationErrors {\n  errors: [MyMutationError]!\n}\n\nunion MyMutationError = NullArgumentError | EmptyArgumentError\n\ntype NullArgumentError implements UserError {\n  path: String\n}\n\ntype EmptyArgumentError implements UserError {\n  path: String\n}\n\ninterface UserError {\n  path: String\n}"
     },
     "supergraph": {
       "updated_at": "2022-03-11T16:08:13.774Z",
       "subgraphs": [
         {
-          "api_id": "task-manager-service",
+          "api_id": "sample-service",
           "name": "Sample GraphQL API",
           "url": "tyk://sample-service/",
-          "sdl": ""
+          "sdl": "type Query {\n  getString: String\n}\n\ntype Mutation {\n  myMutation(arg: String): MyMutationPayload!\n}\n\nunion MyMutationPayload = MyMutationResult | MyMutationErrors\n\ntype MyMutationResult {\n  status: String\n}\n\ntype MyMutationErrors {\n  errors: [MyMutationError]!\n}\n\nunion MyMutationError = NullArgumentError | EmptyArgumentError\n\ntype NullArgumentError implements UserError {\n  path: String\n}\n\ntype EmptyArgumentError implements UserError {\n  path: String\n}\n\ninterface UserError {\n  path: String\n}"
         }
       ],
-      "merged_sdl": "",
+      "merged_sdl": "type Query {\n  getString: String\n}\n\ntype Mutation {\n  myMutation(arg: String): MyMutationPayload!\n}\n\nunion MyMutationPayload = MyMutationResult | MyMutationErrors\n\ntype MyMutationResult {\n  status: String\n}\n\ntype MyMutationErrors {\n  errors: [MyMutationError]!\n}\n\nunion MyMutationError = NullArgumentError | EmptyArgumentError\n\ntype NullArgumentError implements UserError {\n  path: String\n}\n\ntype EmptyArgumentError implements UserError {\n  path: String\n}\n\ninterface UserError {\n  path: String\n}",
       "global_headers": {
       }
     },
