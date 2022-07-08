@@ -12,7 +12,7 @@ type Mutation {
 }
 
 input MyMutationInput {
-  someId: String
+  status: String
 }
 
 union MyMutationPayload = MyMutationResult | MyMutationErrors
