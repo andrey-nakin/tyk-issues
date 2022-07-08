@@ -31,10 +31,10 @@ type MyMutationResult {
 }
 
 type MyMutationErrors {
-  errors: [EmployeeGroupViewToShiftJournalAssignmentError!]!
+  errors: [MyMutationError!]!
 }
 
-union EmployeeGroupViewToShiftJournalAssignmentError = EmployeeGroupViewErrorStarted | EmployeeGroupViewErrorInvalidFrom
+union MyMutationError = EmployeeGroupViewErrorStarted | EmployeeGroupViewErrorInvalidFrom
 
 type EmployeeGroupViewErrorStarted implements UserError {
   path: [String!]
