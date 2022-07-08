@@ -1,0 +1,30 @@
+version: '3.3'
+services:
+  tyk-gateway:
+    image: docker.tyk.io/tyk-gateway/tyk-gateway:v4.1.0-rc15
+    ports:
+      - 8080:8080
+    networks:
+      - tyk
+    volumes:
+      - ./tyk/tyk.conf:/opt/tyk-gateway/tyk.conf
+      - ./tyk/apps:/opt/tyk-gateway/apps
+    environment:
+      - TYK_GW_SECRET=foo
+    depends_on:
+      - tyk-redis
+  tyk-redis:
+    image: redis:5.0-alpine
+    networks:
+      - tyk
+    ports:
+      - 6379:6379
+  gqlapi:
+    image: com.example/gqlapi
+    networks:
+      - tyk
+    ports:
+      - 8082:8080
+
+networks:
+  tyk:
