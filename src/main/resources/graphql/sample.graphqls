@@ -38,26 +38,13 @@ union MyMutationError = EmployeeGroupViewErrorStarted | EmployeeGroupViewErrorIn
 
 type EmployeeGroupViewErrorStarted implements UserError {
   path: [String!]
-  message(localeSpecification: LocaleSpecificationInput): String!
 }
 
 type EmployeeGroupViewErrorInvalidFrom implements UserError {
   path: [String!]
-  message(localeSpecification: LocaleSpecificationInput): String!
   proposedFrom: DateTime
 }
 
 interface UserError {
-  message(localeSpecification: LocaleSpecificationInput): String!
   path: [String!]
-}
-
-input LocaleSpecificationInput {
-  locale: String
-  predefinedLocale: PredefinedLocaleType
-}
-
-enum PredefinedLocaleType {
-  AIRPORT_DEFAULT
-  USER_DEFAULT
 }
