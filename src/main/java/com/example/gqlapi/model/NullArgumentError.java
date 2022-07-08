@@ -3,10 +3,6 @@ package com.example.gqlapi.model;
 import java.util.Collections;
 import java.util.List;
 
-public class NullArgumentError implements UserError, MyMutationError {
+public class NullArgumentError extends AbstractUserError implements MyMutationError {
 
-    @Override
-    public List<String> getPath() {
-        return Collections.singletonList("arg");
-    }
 }

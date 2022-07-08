@@ -8,29 +8,192 @@ type Query {
 }
 
 type Mutation {
-  myMutation(arg: String): MyMutationPayload!
+  myMutation(employeeId: ID!, shiftId: ID!, input: [EmployeeGroupViewInput!]!): MyMutationPayload!
 }
 
-union MyMutationPayload = MyMutationResult | MyMutationErrors
+scalar ID
+scalar DateTime
+
+type EmployeeGroupView {
+  employeeGroup: EmployeeGroup
+  validityPeriod: OptionalDateTimePeriod!
+  deletable: Boolean!
+}
+
+input EmployeeGroupViewInput {
+  employeeGroupId: ID
+  validityPeriod: OptionalDateTimePeriodInput!
+}
+
+union MyMutationPayload = MyMutationResult | EmployeeGroupViewToShiftJournalAssignmentErrors
 
 type MyMutationResult {
   status: String
 }
 
-type MyMutationErrors {
-  errors: [MyMutationError!]!
+type EmployeeGroupViewToShiftJournalAssignmentErrors {
+  errors: [EmployeeGroupViewToShiftJournalAssignmentError!]!
 }
 
-union MyMutationError = NullArgumentError | EmptyArgumentError
+union EmployeeGroupViewToShiftJournalAssignmentError = EmployeeGroupViewErrorStarted | EmployeeGroupViewErrorInvalidFrom
 
-type NullArgumentError implements UserError {
+type EmployeeGroupViewErrorStarted implements UserError {
   path: [String!]
+  message(localeSpecification: LocaleSpecificationInput): String!
 }
 
-type EmptyArgumentError implements UserError {
+type EmployeeGroupViewErrorInvalidFrom implements UserError {
   path: [String!]
+  message(localeSpecification: LocaleSpecificationInput): String!
+  proposedFrom: DateTime
+}
+
+type EmployeeGroup implements IEntity & ISoftDelete {
+  businessRoles: [BusinessRole!]!
+  deleted: Boolean!
+  deletedAt: DateTime
+  id: ID!
+  name: String!
+  subdivisions: [Subdivision!]!
+  validityPeriods(filter: EmployeeGroupValidityPeriodFilter): [EmployeeGroupValidityPeriod!]!
+}
+
+interface IEntity {
+  id: ID!
+}
+
+interface ISoftDelete {
+  deletedAt: DateTime
+}
+
+type BusinessRole implements ISoftDelete {
+  deleted: Boolean!
+  deletedAt: DateTime
+  description: String
+  id: ID!
+  name: String!
+  resourceTypes: [ResourceType!]!
+}
+
+enum ResourceType {
+  "Телетрап"
+  AirBridge
+  "Установка кондиционирования воздуха"
+  AirConditioner
+  "Установка воздушного запуска"
+  AirStartDevice
+  "Авиационный тягач"
+  AircraftTug
+  Ambulift
+  "Тягач багажный"
+  BaggageTractor
+  "Погрузчик ленточный"
+  BeltLoader
+  "Автомобиль для довозки багажа"
+  Car
+  "Перегружатель контейнер"
+  ContainerLoader
+  "Противообледенительная машина"
+  DeicingCar
+  "Сотрудник"
+  Employee
+  "Огнетушитель углекислотный"
+  Extinguisher
+  FollowMeCar @deprecated(reason: "No longer supported")
+  "Источник электропитания"
+  GPU
+  "Аэродромный заправщик газами"
+  GasRefueller
+  "Подогреватель салонов аэродромный"
+  Heater
+  HeaterCar
+  "Автобус перронный"
+  PaxBus
+  "Трап"
+  PaxStairs
+  "Стремянка"
+  Stepladder
+  "Водило буксировочное"
+  Towbar
+  "Адаптер водила буксировочного универсального"
+  TowbarAdapter
+  "Пылесос"
+  VacuumCleaner
+  "Подметально-вакуумная машина"
+  VacuumSweeper
+  "Автомобиль для обслуживания VIP пассажиров"
+  VipServiceCar @deprecated(reason: "No longer supported")
+  "Ассенизационная машина"
+  WasteDisposalMachine
+  "Водозаправочная машина"
+  WaterCar
+}
+
+input EmployeeGroupValidityPeriodFilter {
+  validityPeriodCriteria: [DateTimeRangeCriteria!]
+}
+
+input DateTimeRangeCriteria {
+  period: OptionalDateTimePeriodInput!
+  type: DateTimeRangeCriteriaType!
+}
+
+input OptionalDateTimePeriodInput {
+  from: DateTime
+  to: DateTime
+}
+
+enum DateTimeRangeCriteriaType {
+  AFTER
+  COVER
+  COVER_FROM_POINT
+  COVER_TO_POINT
+  INTERSECTION
+}
+
+type EmployeeGroupValidityPeriod {
+  employeeGroup: EmployeeGroup!
+  employees: [Employee!]!
+  validityPeriod: OptionalDateTimePeriod!
+}
+
+type OptionalDateTimePeriod {
+  from: DateTime
+  to: DateTime
+}
+
+type Employee  {
+  id: ID!
+}
+
+type ShiftJournal {
+  arrivalDate: DateTime
+  departureDate: DateTime
+  employee: Employee!
+  employeeGroupViews: [EmployeeGroupView!]!
+  employeeId: ID!
+  shift: Shift!
+  shiftId: ID!
+}
+
+type Shift {
+  datePlanBegin: DateTime!
+  datePlanEnd: DateTime!
+  id: ID!
+  integrationId: String
 }
 
 interface UserError {
+  message(localeSpecification: LocaleSpecificationInput): String!
   path: [String!]
+}
+
+input LocaleSpecificationInput {
+  locale: String
+  predefinedLocale: PredefinedLocaleType
+}
+
+enum PredefinedLocaleType {
+  AIRPORT_DEFAULT
+  USER_DEFAULT
 }
