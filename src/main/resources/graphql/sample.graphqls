@@ -8,7 +8,7 @@ type Query {
 }
 
 type Mutation {
-  myMutation(employeeId: ID!, shiftId: ID!, input: [MyMutationInput!]!): MyMutationPayload!
+  myMutation(id1: ID!, id2: ID!, input: [MyMutationInput!]!): MyMutationPayload!
 }
 
 scalar ID
