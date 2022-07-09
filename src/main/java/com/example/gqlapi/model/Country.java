@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class MyMutationInput {
+public class Country {
 
-    private final String status;
+    private final String code;
 }

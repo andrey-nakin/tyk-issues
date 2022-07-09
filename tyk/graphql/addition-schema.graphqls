@@ -1,0 +1,31 @@
+directive @extends on OBJECT | INTERFACE
+
+directive @external on FIELD_DEFINITION
+
+directive @key(fields: _FieldSet!) on OBJECT | INTERFACE
+
+directive @provides(fields: _FieldSet!) on FIELD_DEFINITION
+
+directive @requires(fields: _FieldSet!) on FIELD_DEFINITION
+
+directive @specifiedBy(url: String!) on SCALAR
+
+scalar _Any
+
+union _Entity = Country
+
+scalar _FieldSet
+
+type _Service {
+  sdl: String
+}
+
+type Query {
+  _entities(representations: [_Any!]!): [_Entity]!
+  _service: _Service!
+}
+
+type Country {
+  code: String!
+  comment: String
+}

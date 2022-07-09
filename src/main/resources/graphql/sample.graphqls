@@ -1,40 +1,8 @@
-schema {
-  query: Query
-  mutation: Mutation
-}
-
 type Query {
   getString: String
 }
 
-type Mutation {
-  myMutation(input: MyMutationInput!): MyMutationPayload!
-}
-
-input MyMutationInput {
-  status: String
-}
-
-union MyMutationPayload = MyMutationResult | MyMutationErrors
-
-type MyMutationResult {
-  status: String
-}
-
-type MyMutationErrors {
-  errors: [MyMutationError!]!
-}
-
-union MyMutationError = NullArgumentError | EmptyArgumentError
-
-type NullArgumentError implements UserError {
-  path: [String!]
-}
-
-type EmptyArgumentError implements UserError {
-  path: [String!]
-}
-
-interface UserError {
-  path: [String!]
+type Country @key(fields: "code") {
+  code: String! @external
+  comment: String
 }

@@ -1,9 +1,8 @@
-type Query {
+extend type Query {
   countries: [Country!]!
 }
 
-type Country {
+type Country @key(fields: "code") {
   code: String!
   name: String!
-  comment: String
 }

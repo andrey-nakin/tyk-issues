@@ -1,11 +1,11 @@
 {
-  "name": "GraphQL API",
+  "name": "Addition GraphQL API",
   "expiration": "2099-12-31 23:59",
   "slug": "",
   "listen_port": 0,
   "protocol": "",
   "enable_proxy_protocol": false,
-  "api_id": "graphql",
+  "api_id": "addition-service",
   "org_id": "",
   "use_keyless": true,
   "use_oauth2": false,
@@ -79,13 +79,12 @@
   "use_standard_auth": false,
   "use_go_plugin_auth": false,
   "enable_coprocess_auth": false,
-  "jwt_signing_method": "hmac",
+  "jwt_signing_method": "",
   "jwt_source": "",
   "jwt_identity_base_field": "",
   "jwt_client_base_field": "",
   "jwt_policy_field_name": "",
-  "jwt_default_policies": [
-  ],
+  "jwt_default_policies": [ ],
   "jwt_issued_at_validation_skew": 0,
   "jwt_expires_at_validation_skew": 0,
   "jwt_not_before_validation_skew": 0,
@@ -101,7 +100,7 @@
     }
   },
   "jwt_scope_to_policy_mapping": {},
-  "jwt_scope_claim_name": "sub",
+  "jwt_scope_claim_name": "",
   "notifications": {
     "shared_secret": "",
     "oauth_on_keychange_url": ""
@@ -174,7 +173,8 @@
   },
   "proxy": {
     "preserve_host_header": false,
-    "listen_path": "/graphql",
+    "listen_path": "/addition-service/",
+    "target_url": "http://gqlapi:8082/graphql",
     "disable_strip_slash": false,
     "strip_listen_path": true,
     "enable_load_balancing": false,
@@ -203,7 +203,24 @@
   },
   "disable_rate_limit": false,
   "disable_quota": false,
-  "custom_middleware_bundle": null,
+  "custom_middleware": {
+    "pre": null,
+    "post": null,
+    "post_key_auth": null,
+    "auth_check": {
+      "name": "",
+      "path": "",
+      "require_session": false,
+      "raw_body_only": false
+    },
+    "response": null,
+    "driver": "python",
+    "id_extractor": {
+      "extract_from": "",
+      "extract_with": "",
+      "extractor_config": null
+    }
+  },
   "cache_options": {
     "cache_timeout": 0,
     "enable_cache": false,
@@ -215,7 +232,7 @@
   },
   "session_lifetime": 0,
   "active": true,
-  "internal": false,
+  "internal": true,
   "auth_provider": {
     "name": "",
     "storage_engine": "",
@@ -271,46 +288,25 @@
   "strip_auth_data": false,
   "enable_detailed_recording": false,
   "graphql": {
-    "schema": "type Query {\n  countries: [Country!]!\n}\n\ntype Country {\n  code: String!\n  name: String!\n  comment: String\n}",
     "enabled": true,
-    "engine": {
-      "field_configs": [],
-      "data_sources": []
+    "execution_mode": "subgraph",
+    "version": "2",
+    "schema": "directive @extends on OBJECT | INTERFACE\n\ndirective @external on FIELD_DEFINITION\n\ndirective @key(fields: _FieldSet!) on OBJECT | INTERFACE\n\ndirective @provides(fields: _FieldSet!) on FIELD_DEFINITION\n\ndirective @requires(fields: _FieldSet!) on FIELD_DEFINITION\n\ndirective @specifiedBy(url: String!) on SCALAR\n\nscalar _Any\n\nunion _Entity = Country\n\nscalar _FieldSet\n\ntype _Service {\n  sdl: String\n}\n\ntype Query {\n  _entities(representations: [_Any!]!): [_Entity]!\n  _service: _Service!\n}\n\ntype Country {\n  code: String!\n  comment: String\n}\n",
+    "type_field_configurations": null,
+    "playground": {
+      "enabled": false,
+      "path": ""
     },
-    "type_field_configurations": [],
-    "execution_mode": "supergraph",
+    "engine": {
+      "field_configs": null,
+      "data_sources": null
+    },
     "proxy": {
-      "auth_headers": {}
+      "auth_headers": null
     },
     "subgraph": {
-      "sdl": ""
+      "sdl": "extend type Country @key(fields: \"code\") {\n  code: String! @external\n  comment: String\n}\n"
     },
-    "supergraph": {
-      "updated_at": "2022-03-11T16:08:13.774Z",
-      "subgraphs": [
-        {
-          "api_id": "country-service",
-          "name": "Country GraphQL API",
-          "url": "tyk://country-service/",
-          "sdl": "extend type Query {\n  countries: [Country!]!\n}\n\ntype Country @key(fields: \"code\") {\n  code: String!\n  name: String!\n}"
-        },
-        {
-          "api_id": "addition-service",
-          "name": "Addition GraphQL API",
-          "url": "tyk://addition-service/",
-          "sdl": "extend type Country @key(fields: \"code\") {\n  code: String! @external\n  comment: String\n}\n"
-        }
-      ],
-      "merged_sdl": "type Query {\n  countries: [Country!]!\n}\n\ntype Country {\n  code: String!\n  name: String!\n  comment: String\n}",
-      "global_headers": {
-      },
-      "disable_query_batching": false
-    },
-    "version": "2",
-    "playground": {
-      "enabled": true,
-      "path": "/playground"
-    },
-    "last_schema_update": "2022-03-11T16:08:13.774Z"
+    "supergraph": null
   }
 }
