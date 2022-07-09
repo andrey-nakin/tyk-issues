@@ -291,7 +291,7 @@
     "enabled": true,
     "execution_mode": "subgraph",
     "version": "2",
-    "schema": "schema {\n  query: Query\n}\n\ntype Query {\n  countries: [Country!]!\n}\n\ntype Country {\n  code: String\n  name: String\n}",
+    "schema": "type Query {\n  countries: [Country!]!\n}\n\ntype Country {\n  code: String!\n  name: String!\n}",
     "type_field_configurations": null,
     "playground": {
       "enabled": false,
@@ -305,7 +305,7 @@
       "auth_headers": null
     },
     "subgraph": {
-      "sdl": "schema {\n  query: Query\n}\n\ntype Query {\n  countries: [Country!]!\n}\n\ntype Country {\n  code: String\n  name: String\n}"
+      "sdl": "extend type Query {\n  countries: [Country!]!\n}\n\ntype Country @key(fields: \"code\") {\n  code: String!\n  name: String!\n}"
     },
     "supergraph": null
   }

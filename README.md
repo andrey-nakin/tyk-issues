@@ -17,22 +17,11 @@
 * Send the following GraphQL request to endpoint `http://localhost:8080/graphql`:
 
 ```shell
-mutation {
-  myMutation(
-    input: {
-      status: "a"
-    }
-  ) {
-    ...on MyMutationResult {
-      status
-    }
-    ...on MyMutationErrors {
-      errors {
-        ...on UserError {
-          __typename
-        }
-      }
-    }
+{
+  countries {
+    code
+    name
+    comment
   }
 }
 ```
@@ -42,5 +31,5 @@ For example, with `curl`:
 ```shell
 curl --location --request POST 'http://localhost:8080/graphql' \
 --header 'Content-Type: application/json' \
---data-raw '{"query":"mutation {\n  myMutation(\n    input: {\n      status: \"a\"\n    }\n  ) {\n    ...on MyMutationResult {\n      status\n    }\n    ...on MyMutationErrors {\n      errors {\n        ...on UserError {\n          __typename\n        }\n      }\n    }\n  }\n}","variables":{}}'
+--data-raw '{"query":"{\n  countries {\n    code\n    name\n    comment\n  }\n}","variables":{}}'
 ```
