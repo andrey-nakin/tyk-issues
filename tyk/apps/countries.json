@@ -291,7 +291,7 @@
     "enabled": true,
     "execution_mode": "subgraph",
     "version": "2",
-    "schema": "type Query {\n  countries: [Country!]!\n}\n\ntype Country {\n  code: String!\n  name: String!\n}",
+    "schema": "directive @extends on OBJECT | INTERFACE\n\ndirective @external on FIELD_DEFINITION\n\ndirective @key(fields: _FieldSet!) on OBJECT | INTERFACE\n\ndirective @provides(fields: _FieldSet!) on FIELD_DEFINITION\n\ndirective @requires(fields: _FieldSet!) on FIELD_DEFINITION\n\ndirective @specifiedBy(url: String!) on SCALAR\n\nscalar _Any\n\nunion _Entity = Country\n\nscalar _FieldSet\n\ntype _Service {\n  sdl: String\n}\n\ntype Query {\n  countries: [Country!]!\n}\n\ntype Country @key(fields: \"code\") {\n  code: String!\n  name: String!\n}",
     "type_field_configurations": null,
     "playground": {
       "enabled": false,
