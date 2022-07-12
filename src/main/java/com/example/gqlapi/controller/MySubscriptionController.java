@@ -1,6 +1,7 @@
 package com.example.gqlapi.controller;
 
-import com.example.gqlapi.repository.DataRepository;
+import java.time.Duration;
+import java.time.LocalTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
@@ -12,11 +13,9 @@ import reactor.core.publisher.Flux;
 @Slf4j
 public class MySubscriptionController {
 
-    private final DataRepository repository;
-
     @SubscriptionMapping
     public Flux<String> mySubscription() {
         log.info("mySubscription");
-        return this.repository.getStream();
+        return Flux.interval(Duration.ofSeconds(1)).map(sequence -> LocalTime.now().toString());
     }
 }
