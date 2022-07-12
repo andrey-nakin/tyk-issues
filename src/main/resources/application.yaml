@@ -1,2 +1,14 @@
 server:
   port: 8082
+
+spring:
+  graphql:
+    schema:
+      introspection:
+        enabled: true
+      printer:
+        enabled: true
+    websocket:
+      path: /graphql
+    graphiql:
+      enabled: true

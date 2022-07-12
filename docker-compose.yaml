@@ -20,7 +20,7 @@ services:
     ports:
       - 6379:6379
   gqlapi:
-    image: com.example/gqlapi
+    image: com.example/gqlapi-subscriptions-playground
     networks:
       - tyk
     ports:
