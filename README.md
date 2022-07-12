@@ -8,39 +8,18 @@
 
 ## Steps to reproduce
 
-* Build GraphQL backend and run it with Tyk and Redis: 
+1. Build GraphQL backend and run it with Tyk and Redis: 
 
 ```shell
 ./gradlew build image && docker compose up
 ```
 
-* Send the following GraphQL request to endpoint `http://localhost:8080/graphql`:
+2. Open the following link in browser: [http://localhost:8080/graphql/playground](http://localhost:8080/graphql/playground) 
 
-```shell
-mutation {
-  myMutation(
-    input: {
-      status: "a"
-    }
-  ) {
-    ...on MyMutationResult {
-      status
-    }
-    ...on MyMutationErrors {
-      errors {
-        ...on UserError {
-          __typename
-        }
-      }
-    }
-  }
-}
+3. Execute the subscription in API Playground:
+
 ```
-
-For example, with `curl`:
-
-```shell
-curl --location --request POST 'http://localhost:8080/graphql' \
---header 'Content-Type: application/json' \
---data-raw '{"query":"mutation {\n  myMutation(\n    input: {\n      status: \"a\"\n    }\n  ) {\n    ...on MyMutationResult {\n      status\n    }\n    ...on MyMutationErrors {\n      errors {\n        ...on UserError {\n          __typename\n        }\n      }\n    }\n  }\n}","variables":{}}'
+subscription {
+  mySubscription
+}
 ```
