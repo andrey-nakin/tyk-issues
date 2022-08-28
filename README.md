@@ -1,25 +1,46 @@
 # Tyk Issue Demo App
 
+This project demonstrates a bug in Tyk that occurs when Redis API is called from a middleware written in Python. 
+
 ## Requirements
 
-* Java 17
 * Docker
 * Docker Compose
 
 ## Steps to reproduce
 
-1. Build GraphQL backend and run it with Tyk and Redis: 
+1. Build the middleware: 
+
+### Unix
 
 ```shell
-./gradlew build image && docker compose up
+./gradlew build
 ```
 
-2. Open the following link in browser: [http://localhost:8080/graphql/playground](http://localhost:8080/graphql/playground) 
+### Windows
+
+```shell
+gradlew build
+```
+
+2. Run Tyk and its dependencies:
+
+```shell
+docker compose up
+```
+
+or
+
+```shell
+docker-compose up
+```
 
 3. Execute the subscription in API Playground:
 
+```shell
+curl --location --request POST 'http://localhost:8080/country-service/' \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"query { countries { code name }}","variables":{}}'
 ```
-subscription {
-  mySubscription
-}
-```
+
+Notice error dump in Tyk logs.
