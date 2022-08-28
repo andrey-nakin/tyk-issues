@@ -19,6 +19,14 @@ services:
       - tyk
     ports:
       - 6379:6379
+  tyk-bundles:
+    image: nginxinc/nginx-unprivileged:1.21.6-alpine
+    networks:
+      - tyk
+    volumes:
+      - ./build:/usr/share/nginx/html
+    ports:
+      - 8082:8080
 
 networks:
   tyk:

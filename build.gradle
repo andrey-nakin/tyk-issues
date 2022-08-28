@@ -1,2 +1,11 @@
-plugins {
+task buildMiddleware(type: Zip) {
+    from "${project.projectDir}/src/main/python/middleware"
+    include '*'
+    include '*/*' //to include contents of a folder present inside Reports directory
+    archiveFileName = "middleware.zip"
+    destinationDirectory = file(project.buildDir)
+}
+
+task build {
+    dependsOn tasks.buildMiddleware
 }

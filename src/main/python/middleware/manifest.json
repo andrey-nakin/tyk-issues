@@ -1,0 +1,13 @@
+{
+  "file_list": [
+    "middleware.py"
+  ],
+  "custom_middleware": {
+    "pre": [
+      {
+        "name": "PreHook"
+      }
+    ],
+    "driver": "python"
+  }
+}
