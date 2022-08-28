@@ -1,4 +1,15 @@
+task prepareDirs {
+    doLast {
+        delete "$buildDir"
+        mkdir "$buildDir"
+        delete "$buildDir/middleware"
+        mkdir "$buildDir/middleware"
+    }
+}
+
 task buildMiddleware(type: Zip) {
+    dependsOn tasks.prepareDirs
+
     from "${project.projectDir}/src/main/python/middleware"
     include '*'
     include '*/*' //to include contents of a folder present inside Reports directory

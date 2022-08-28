@@ -9,10 +9,12 @@ services:
     volumes:
       - ./tyk/tyk.conf:/opt/tyk-gateway/tyk.conf
       - ./tyk/apps:/opt/tyk-gateway/apps
+      - ./build/middleware:/opt/tyk-gateway/middleware
     environment:
       - TYK_GW_SECRET=foo
     depends_on:
       - tyk-redis
+      - tyk-bundles
   tyk-redis:
     image: redis:5.0-alpine
     networks:
