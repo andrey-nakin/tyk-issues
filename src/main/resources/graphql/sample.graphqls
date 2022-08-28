@@ -1,7 +1,0 @@
-type Query {
-  getString: String
-}
-
-type Subscription {
-  mySubscription: String!
-}

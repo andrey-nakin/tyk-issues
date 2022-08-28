@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   tyk-gateway:
-    image: docker.tyk.io/tyk-gateway/tyk-gateway:v4.1.0-rc18
+    image: docker.tyk.io/tyk-gateway/tyk-gateway:v4.1.0
     ports:
       - 8080:8080
     networks:
@@ -19,12 +19,6 @@ services:
       - tyk
     ports:
       - 6379:6379
-  gqlapi:
-    image: com.example/gqlapi-subscriptions-playground
-    networks:
-      - tyk
-    ports:
-      - 8082:8082
 
 networks:
   tyk:
