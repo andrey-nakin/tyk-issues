@@ -1,34 +1,22 @@
 version: '3.3'
 services:
-  tyk-gateway:
-    image: docker.tyk.io/tyk-gateway/tyk-gateway:v4.1.0
-    ports:
-      - 8080:8080
+
+  my-service:
+    image: my-service:1.0.0
     networks:
-      - tyk
-    volumes:
-      - ./tyk/tyk.conf:/opt/tyk-gateway/tyk.conf
-      - ./tyk/apps:/opt/tyk-gateway/apps
-      - ./build/middleware:/opt/tyk-gateway/middleware
+      - mynetwork
     environment:
-      - TYK_GW_SECRET=foo
-    depends_on:
-      - tyk-redis
-      - tyk-bundles
-  tyk-redis:
+      - REDIS_ADDRESS=myredis:6379
+    ports:
+      - "8080:8080"
+
+  my-redis:
     image: redis:5.0-alpine
     networks:
-      - tyk
+      - mynetwork
     ports:
-      - 6379:6379
-  tyk-bundles:
-    image: nginxinc/nginx-unprivileged:1.21.6-alpine
-    networks:
-      - tyk
-    volumes:
-      - ./build:/usr/share/nginx/html
-    ports:
-      - 8082:8080
+      - "6379:6379"
+
 
 networks:
-  tyk:
+  mynetwork:
