@@ -205,12 +205,6 @@
   "disable_quota": false,
   "custom_middleware": {
     "pre": [
-      {
-        "name": "PreHook",
-        "path": "",
-        "require_session": false,
-        "raw_body_only": false
-      }
     ],
     "post": null,
     "post_key_auth": null,
@@ -228,7 +222,7 @@
       "extractor_config": null
     }
   },
-  "custom_middleware_bundle": "middleware.zip",
+  "custom_middleware_bundle": null,
   "cache_options": {
     "cache_timeout": 0,
     "enable_cache": false,
@@ -298,7 +292,7 @@
   "graphql": {
     "enabled": true,
     "execution_mode": "proxyOnly",
-    "schema": "type Query {\n  countries: [Country!]!\n}\n\ntype Country {\n  code: String!\n  name: String!\n}",
+    "schema": "type Country {\n  code: ID!\n  name: String!\n}\n\ninput StringQueryOperatorInput {\n  eq: String\n  ne: String\n  in: [String]\n  nin: [String]\n  regex: String\n  glob: String\n}\n\ninput CountryFilterInput {\n  code: StringQueryOperatorInput\n  currency: StringQueryOperatorInput\n  continent: StringQueryOperatorInput\n}\n\ntype Query {\n  countries(filter: CountryFilterInput): [Country!]!\n}\n",
     "type_field_configurations": null,
     "playground": {
       "enabled": false,
