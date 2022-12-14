@@ -2,6 +2,8 @@
 
 This project demonstrates a bug in Tyk that occurs when an extra field is added to input variable.
 
+**FIXED in v4.3.0.**
+
 ## Requirements
 
 * Docker
