@@ -1,5 +1,7 @@
 # Tyk Issue Demo App
 
+**FIXED in v4.3.0**
+
 ## Requirements
 
 * Java 17
