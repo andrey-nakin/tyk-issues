@@ -1,8 +1,0 @@
-extend type Query {
-  countries: [Country!]!
-}
-
-type Country @key(fields: "code") {
-  code: String!
-  name: String!
-}

@@ -35,4 +35,9 @@ public class GraphQlController {
             return Errors.builder().errors(List.of(BadPayload.builder().payload(payload).build())).build();
         }
     }
+
+    @MutationMapping
+    public Response parseStringEasy(@Argument @NonNull String payload) {
+        return Response.builder().result(Integer.valueOf(payload)).build();
+    }
 }

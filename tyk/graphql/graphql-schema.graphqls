@@ -1,9 +1,0 @@
-type Query {
-  countries: [Country!]!
-}
-
-type Country {
-  code: String!
-  name: String!
-  comment: String
-}

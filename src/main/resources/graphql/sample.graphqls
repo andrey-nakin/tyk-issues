@@ -4,6 +4,7 @@ type Query {
 
 type Mutation {
   parseString(payload: String!): Payload!
+  parseStringEasy(payload: String!): Response!
 }
 
 union Payload = Response | Errors

@@ -1,4 +1,0 @@
-extend type Country @key(fields: "code") {
-  code: String! @external
-  comment: String
-}

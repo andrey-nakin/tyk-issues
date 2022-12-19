@@ -291,12 +291,12 @@
   "enable_detailed_recording": false,
   "graphql": {
     "enabled": true,
-    "execution_mode": "proxyOnly",
-    "schema": "type Query {\n  getString: String\n}\n\ntype Mutation {\n  parseString(payload: String!): Payload!\n}\n\nunion Payload = Response | Errors\n\ntype Response {\n  result: Int!\n}\n\ntype Errors {\n  errors: [Error]!\n}\n\nunion Error = EmptyPayload | BadPayload\n\ntype EmptyPayload implements MutationError {\n  message: String!\n}\n\ntype BadPayload implements MutationError {\n  message: String!\n  payload: String!\n}\n\ninterface MutationError {\n  message: String!\n}\n",
+    "execution_mode": "executionEngine",
+    "schema": "type Query {\n  getString: String\n}\n\ntype Mutation {\n  parseString(payload: String!): Payload!\n  parseStringEasy(payload: String!): Response!\n}\n\nunion Payload = Response | Errors\n\ntype Response {\n  result: Int!\n}\n\ntype Errors {\n  errors: [Error]!\n}\n\nunion Error = EmptyPayload | BadPayload\n\ntype EmptyPayload implements MutationError {\n  message: String!\n}\n\ntype BadPayload implements MutationError {\n  message: String!\n  payload: String!\n}\n\ninterface MutationError {\n  message: String!\n}\n",
     "type_field_configurations": null,
     "playground": {
       "enabled": true,
-      "path": ""
+      "path": "/playground"
     },
     "engine": {
       "field_configs": null,
