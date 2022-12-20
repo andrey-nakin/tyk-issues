@@ -1,5 +1,5 @@
 type Query {
-  getResponse: Response!
+  getResponse: IResponse!
 }
 
 type Response implements IResponse {

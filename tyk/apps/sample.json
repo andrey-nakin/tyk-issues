@@ -291,7 +291,7 @@
     "enabled": true,
     "execution_mode": "subgraph",
     "version": "2",
-    "schema": "type Query {\n  getString: String\n}\n\ntype Mutation {\n  parseString(payload: String!): Payload!\n  parseStringEasy(payload: String!): Response!\n}\n\nunion Payload = Response | Errors\n\ntype Response {\n  result: Int!\n}\n\ntype Errors {\n  errors: [Error]!\n}\n\nunion Error = EmptyPayload | BadPayload\n\ntype EmptyPayload implements MutationError {\n  message: String!\n}\n\ntype BadPayload implements MutationError {\n  message: String!\n  payload: String!\n}\n\ninterface MutationError {\n  message: String!\n}\n",
+    "schema": "type Query {\n  getResponse: IResponse!\n}\n\ntype Response implements IResponse {\n  result: Int!\n}\n\ninterface IResponse {\n  result: Int!\n}\n",
     "type_field_configurations": null,
     "playground": {
       "enabled": false,
@@ -305,7 +305,7 @@
       "auth_headers": null
     },
     "subgraph": {
-      "sdl": "type Query {\n  getString: String\n}\n\ntype Mutation {\n  parseString(payload: String!): Payload!\n  parseStringEasy(payload: String!): Response!\n}\n\nunion Payload = Response | Errors\n\ntype Response {\n  result: Int!\n}\n\ntype Errors {\n  errors: [Error]!\n}\n\nunion Error = EmptyPayload | BadPayload\n\ntype EmptyPayload implements MutationError {\n  message: String!\n}\n\ntype BadPayload implements MutationError {\n  message: String!\n  payload: String!\n}\n\ninterface MutationError {\n  message: String!\n}\n"
+      "sdl": "type Query {\n  getResponse: IResponse!\n}\n\ntype Response implements IResponse {\n  result: Int!\n}\n\ninterface IResponse {\n  result: Int!\n}\n"
     },
     "supergraph": null
   }
