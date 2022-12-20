@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 @Builder
 @Getter
-public class Response implements Payload {
+public class Response implements IResponse {
 
     @NonNull
     private final Integer result;

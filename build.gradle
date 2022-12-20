@@ -28,7 +28,7 @@ docker {
     springBootApplication {
         baseImage = "openjdk:17.0.2-oracle"
         ports = [8080]
-        images = ["com.example/innerunion:latest"]
+        images = ["com.example/interface:latest"]
     }
 }
 

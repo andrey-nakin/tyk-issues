@@ -1,33 +1,11 @@
 type Query {
-  getString: String
+  getResponse: Response!
 }
 
-type Mutation {
-  parseString(payload: String!): Payload!
-  parseStringEasy(payload: String!): Response!
-}
-
-union Payload = Response | Errors
-
-type Response {
+type Response implements IResponse {
   result: Int!
 }
 
-type Errors {
-  errors: [Error]!
-}
-
-union Error = EmptyPayload | BadPayload
-
-type EmptyPayload implements MutationError {
-  message: String!
-}
-
-type BadPayload implements MutationError {
-  message: String!
-  payload: String!
-}
-
-interface MutationError {
-  message: String!
+interface IResponse {
+  result: Int!
 }
